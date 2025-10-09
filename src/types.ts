@@ -6,7 +6,7 @@ export type Movies = {
 export type MovieListPros = {
     
     movies: Movies[];
-    level : number
+   
 }
 
 export type Number = {
