@@ -2,6 +2,7 @@ import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import Hero from "./components/Hero";
 import TrendingMovies from "./components/Movies";
 import { useTrendingMovies } from "./hooks/useTrendingMovies";
+import DiscoverMovies from "./components/DiscoverMovies";
 
 const App = () => {
   const { movies, loading, error } = useTrendingMovies();
@@ -24,6 +25,7 @@ const App = () => {
             <div className="text-white text-center py-12">No movies found</div>
           )}
           {!loading && !error && movies && <TrendingMovies movies={movies} />}
+          <DiscoverMovies />
         </SignedIn>
 
         {/* <SignedOut>

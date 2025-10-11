@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
@@ -8,6 +9,9 @@ import { routeTree } from "./routeTree.gen";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals.ts";
 import { ClerkProvider } from "@clerk/clerk-react";
+
+// Create a QueryClient instance
+const queryClient = new QueryClient();
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -38,9 +42,11 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-        <RouterProvider router={router} />
-      </ClerkProvider>
+      <QueryClientProvider client={queryClient}>
+        <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+          <RouterProvider router={router} />
+        </ClerkProvider>
+      </QueryClientProvider>
     </StrictMode>
   );
 }
