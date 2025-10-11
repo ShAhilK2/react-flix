@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut } from "@clerk/clerk-react";
+import { SignedIn } from "@clerk/clerk-react";
 import Hero from "./components/Hero";
 import TrendingMovies from "./components/Movies";
 import { useTrendingMovies } from "./hooks/useTrendingMovies";

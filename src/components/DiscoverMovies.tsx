@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useInfiniteMovies } from "../hooks/useInfiniteMovies";
 import MovieCard from "./MovieCard";
 import type { Movies, TMBDRESPONSE } from "../types";

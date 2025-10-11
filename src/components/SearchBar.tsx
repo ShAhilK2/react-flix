@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import { useNavigate } from "@tanstack/react-router";
 
 import useSearchStore from "../store/searchstore";
 import { RxCrossCircled } from "react-icons/rx";
 import performSearch from "@/lib/performSearch";
-import { useMovieStore, useSearchMovieStore } from "@/store/movieStore";
+import { useSearchMovieStore } from "@/store/movieStore";
 
 const SearchBar = () => {
   const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
-  const searchContainerRef = useRef(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const setQuery = useSearchStore((state) => state.setQuery);
   const query = useSearchStore((state) => state.query);
@@ -21,7 +21,7 @@ const SearchBar = () => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         searchContainerRef.current &&
-        !searchContainerRef.current.contains(event.target)
+        !searchContainerRef.current.contains(event.target as Node)
       ) {
         setIsSearchButtonClicked(false);
       }
@@ -59,7 +59,7 @@ const SearchBar = () => {
     searchQuery(value);
   };
 
-  const handleResetButton = (query: string) => {
+  const handleResetButton = () => {
     setQuery("");
     setResults([]);
     // Navigate back to home when clearing search
@@ -83,7 +83,7 @@ const SearchBar = () => {
           {query !== "" && (
             <div
               className="absolute right-[1rem] bottom-1/2 translate-y-1/2  flex items-center  !cursor-pointer z-10"
-              onClick={() => handleResetButton(query)}
+              onClick={() => handleResetButton()}
             >
               <RxCrossCircled
                 color="white"

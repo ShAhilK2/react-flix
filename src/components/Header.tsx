@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import heroBg from "../assets/hero.jpg";
 import SearchBar from "./SearchBar";
 import {
   SignedIn,

@@ -1,5 +1,4 @@
 import { useMovieStore } from "@/store/movieStore";
-import useSearchStore from "@/store/searchstore";
 import { useEffect, useState } from "react";
 
 const accessToken = import.meta.env.VITE_TMDB_ACCESS_TOKEN;

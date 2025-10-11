@@ -76,7 +76,6 @@ const MovieDetails = () => {
   const {
     data: videos,
     isLoading: videosLoading,
-    isError: videosError,
   } = useQuery({
     queryKey: ["movie-videos", movieId],
     queryFn: () => fetchMovieVideos(movieId),
