@@ -1,17 +1,12 @@
 import MovieList from "./MovieList";
 
-import MOVIES_DATA from "../data/moviesData.json";
-const Movies = () => {
+const TrendingMovies = ({ movies }: any) => {
   return (
-    <div className="container mt-6 px-6">
-      <h3>Trending Now</h3>
-      {MOVIES_DATA?.results?.length > 0 ? (
-        <MovieList movies={MOVIES_DATA.results} />
-      ) : (
-        <div>No Movie Were Found</div>
-      )}
+    <div className="container mt-6 px-6  ">
+      <h3 className="text-2xl py-6 !text-white">Trending Now</h3>
+      <MovieList movies={movies} />
     </div>
   );
 };
 
-export default Movies;
+export default TrendingMovies;

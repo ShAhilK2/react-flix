@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import { useNavigate } from "@tanstack/react-router";
 
-import MOVIES_DATA from "../data/moviesData.json";
-import type { Movies } from "../types";
 import useSearchStore from "../store/searchstore";
 import { RxCrossCircled } from "react-icons/rx";
+import performSearch from "@/lib/performSearch";
+import { useMovieStore, useSearchMovieStore } from "@/store/movieStore";
 
 const SearchBar = () => {
   const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
@@ -14,7 +14,8 @@ const SearchBar = () => {
   const setQuery = useSearchStore((state) => state.setQuery);
   const query = useSearchStore((state) => state.query);
   const setResults = useSearchStore((state) => state.setResults);
-  const performSearch = useSearchStore((state) => state.performSearch);
+
+  const baseResults = useSearchMovieStore((state) => state.searchMovies);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -36,11 +37,13 @@ const SearchBar = () => {
   }, [isSearchButtonClicked]);
 
   // 👇 Your original search function
-  const searchQuery = (query: string) => {
-    performSearch(query);
+  const searchQuery = (q: string) => {
+    const { data } = performSearch(q, baseResults);
+    setResults(data);
+
     // Navigate to search route when query is not empty
-    if (query.trim() !== "") {
-      navigate({ to: "/search", search: { movie: query } });
+    if (q.trim() !== "") {
+      navigate({ to: "/search", search: { movie: q } });
     } else {
       // Navigate back to home when query is empty
       navigate({ to: "/" });
@@ -51,9 +54,9 @@ const SearchBar = () => {
   const handleSearchQueryChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const query = event.target.value;
-    console.log("Search Input:", query);
-    searchQuery(query);
+    const value = event.target.value;
+    setQuery(value);
+    searchQuery(value);
   };
 
   const handleResetButton = (query: string) => {

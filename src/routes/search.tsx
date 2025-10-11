@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import MovieCard from "@/components/MovieCard";
 import useSearchStore from "@/store/searchstore";
+import { useSearchMovieStore } from "@/store/movieStore";
+import { useSearchMovies } from "@/hooks/useSearchMovies";
+import { useEffect } from "react";
 
 type SearchParams = {
   movie?: string;
@@ -18,13 +21,23 @@ export const Route = createFileRoute("/search")({
 
 function SearchComponent() {
   const { movie } = Route.useSearch();
-  console.log("Search in Titlebar  " + movie);
+  const setQuery = useSearchStore((store) => store.setQuery);
 
-  const results = useSearchStore((store) => store.results);
+  useEffect(() => {
+    if (movie) {
+      setQuery(movie);
+    }
+  }, [movie, setQuery]);
+
+  const { loading } = useSearchMovies();
+  const results = useSearchMovieStore((store) => store.searchMovies);
+  console.log(results);
 
   return (
     <div className="container">
-      {results.length > 0 ? (
+      {loading ? (
+        <div className="pt-20 text-white mx-auto">Loading...</div>
+      ) : results.length > 0 ? (
         <div className="flex pt-20  flex-wrap space-x-4 space-y-4">
           {results.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
