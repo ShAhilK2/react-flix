@@ -31,14 +31,21 @@ function SearchComponent() {
 
   const { loading } = useSearchMovies();
   const results = useSearchMovieStore((store) => store.searchMovies);
-  console.log(results);
 
   return (
-    <div className="container">
+    <div className="pt-20  mx-auto !container">
+      <h2 className="text-2xl py-6 !text-white mx-auto">
+        Search Results : {movie}
+      </h2>
+
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {movie ? `${results.length} results for ${movie}` : ""}
+      </div>
+
       {loading ? (
-        <div className="pt-20 text-white mx-auto">Loading...</div>
+        <div className=" text-white mx-auto">Loading...</div>
       ) : results.length > 0 ? (
-        <div className="flex pt-20  flex-wrap space-x-4 space-y-4">
+        <div className="flex  flex-wrap space-x-4 space-y-4">
           {results.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}

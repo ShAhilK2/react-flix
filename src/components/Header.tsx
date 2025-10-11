@@ -1,6 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import heroBg from "../assets/hero.jpg";
 import SearchBar from "./SearchBar";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 const Header = () => {
   return (
     <header className="absolute top-0 left-0 right-0 z-[100]  py-5 ">
@@ -10,7 +16,16 @@ const Header = () => {
             REACTFLIX
           </h1>
         </Link>
-        <SearchBar />
+
+        <div className="flex items-center gap-4 z-40 text-white !cursor-pointer">
+          <SearchBar />
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
       </div>
     </header>
   );

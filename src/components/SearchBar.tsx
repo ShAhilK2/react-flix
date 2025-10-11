@@ -67,15 +67,15 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2" ref={searchContainerRef}>
       {isSearchButtonClicked && (
         <div className="relative">
           <input
             type="text"
             autoFocus
-            placeholder="Search"
+            placeholder="Title ,people,and genre "
             className="px-4 py-2  rounded-md border border-gray-300 focus:outline-none
-          focus:ring-2 focus:ring-red-600 placeholder:text-gray-400 text-white"
+          focus:ring-2 focus:ring-red-600 placeholder:text-gray-100 text-white"
             onChange={handleSearchQueryChange}
             value={query}
           />
@@ -94,12 +94,14 @@ const SearchBar = () => {
         </div>
       )}
 
-      <button
-        onClick={() => setIsSearchButtonClicked(true)}
-        className="cursor-pointer"
-      >
-        <RiSearchLine className="text-white w-8 h-8" />
-      </button>
+      {!isSearchButtonClicked && (
+        <button
+          onClick={() => setIsSearchButtonClicked(true)}
+          className="cursor-pointer"
+        >
+          <RiSearchLine className="text-white w-8 h-8" />
+        </button>
+      )}
     </div>
   );
 };
